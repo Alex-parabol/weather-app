@@ -1,11 +1,8 @@
 import React, {useState} from 'react'
 
-const Form =()=>{
+const Form =({busqueda, setBusqueda, setConsulta})=>{
 
-   const [busqueda, setBusqueda ] = useState({
-       ciudad: '',
-       pais:''
-   })
+   
 
    const [error, setError ] = useState(false)
 
@@ -36,6 +33,10 @@ const Form =()=>{
         } else {
             setError(false)
         }
+
+        setConsulta(true);
+
+
     }
 
 
@@ -43,7 +44,7 @@ const Form =()=>{
         <form
             onSubmit={handleSubmit}
         >
-            {error ? <div className="red darken-4">Todos los campos son obligatorios</div> : null}
+            {error ? <div className="red darken-4 error">Todos los campos son obligatorios</div> : null}
             <div className="input-field col s12">
                 <input 
                 type="text"
