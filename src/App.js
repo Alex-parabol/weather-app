@@ -2,6 +2,7 @@ import React, {Fragment, useState, useEffect} from 'react';
 import Header from './Components/Header';
 import Form from './Components/Form'
 import Clima from './Components/Clima'
+import Error from './Components/Error'
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
 
   // extraemos la información que nos interesa de la api.
 
-  const { weather, main } = resultado;
+  /* const { weather, main } = resultado; */
 
   useEffect(()=>{
     const consultarAPI = async () =>{
@@ -48,9 +49,17 @@ function App() {
       }
     }
     consultarAPI()
+    // eslint-disable-next-line
   },[consulta])
 
-  
+  // carga condicional de componentes
+
+  let componente;
+  if(error){
+    componente = <Error mensaje='No existen resultados' />
+  } else {
+    componente = <Clima resultado={resultado} />
+  }
 
   return (
     <Fragment>
@@ -66,9 +75,7 @@ function App() {
                 />
               </div>
               <div className="col m6 s12">
-                <Clima
-                  resultado={resultado}
-                />
+                {componente}
               </div>
             </div>
           </div>

@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import Error from './Error'
+import PropTypes from 'prop-types'
 
 const Form =({busqueda, setBusqueda, setConsulta})=>{
 
@@ -38,13 +40,18 @@ const Form =({busqueda, setBusqueda, setConsulta})=>{
 
 
     }
-
+        let componente;
+        if(error){
+            componente = <Error mensaje="Todos los campos son obligatorios"/>
+        } else {
+            componente = null
+        }
 
     return (
         <form
             onSubmit={handleSubmit}
         >
-            {error ? <div className="red darken-4 error">Todos los campos son obligatorios</div> : null}
+            {componente}
             <div className="input-field col s12">
                 <input 
                 type="text"
@@ -84,6 +91,12 @@ const Form =({busqueda, setBusqueda, setConsulta})=>{
             </div>
         </form>
     );
+}
+
+Form.propTypes = {
+    busqueda: PropTypes.object.isRequired,
+    setBusqueda: PropTypes.func.isRequired,
+    setConsulta: PropTypes.func.isRequired
 }
 
 export default Form
